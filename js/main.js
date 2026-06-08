@@ -1,20 +1,53 @@
 const logoLoader = document.querySelector("#logoLoader");
+const logoLoaderBar = document.querySelector("#logoLoaderBar");
+const logoLoaderPercent = document.querySelector("#logoLoaderPercent");
 
 if (logoLoader) {
   document.body.classList.add("loader-active");
+  const hasSeenLoader = window.sessionStorage.getItem("cbnTrustLoaderSeen") === "true";
+  const duration = hasSeenLoader ? 1450 : 2600;
+  const holdAfterComplete = hasSeenLoader ? 650 : 950;
+  const startTime = window.performance.now();
+
+  const setLoaderProgress = (value) => {
+    const progress = Math.min(100, Math.max(0, Math.round(value)));
+    if (logoLoaderBar) logoLoaderBar.style.width = `${progress}%`;
+    if (logoLoaderPercent) logoLoaderPercent.textContent = `${progress}%`;
+    logoLoader.setAttribute("aria-label", `Loading CBN Trust ${progress}%`);
+  };
+
   const hideLogoLoader = () => {
+    setLoaderProgress(100);
+    window.sessionStorage.setItem("cbnTrustLoaderSeen", "true");
     window.setTimeout(() => {
       logoLoader.classList.add("done");
       document.body.classList.remove("loader-active");
-    }, 500);
-    window.setTimeout(() => logoLoader.remove(), 1150);
+    }, holdAfterComplete);
+    window.setTimeout(() => logoLoader.remove(), holdAfterComplete + 650);
   };
 
-  if (document.readyState === "complete") {
-    hideLogoLoader();
-  } else {
-    window.addEventListener("load", hideLogoLoader, { once: true });
-  }
+  const animateLogoLoader = () => {
+    const elapsed = window.performance.now() - startTime;
+    const linear = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - linear, 3);
+    const progress = Math.min(99, eased * 100);
+    setLoaderProgress(progress);
+
+    if (linear < 1) {
+      window.requestAnimationFrame(animateLogoLoader);
+      return;
+    }
+
+    const finish = () => window.setTimeout(hideLogoLoader, 180);
+    if (document.readyState === "complete") {
+      finish();
+    } else {
+      window.addEventListener("load", finish, { once: true });
+    }
+  };
+
+  setLoaderProgress(0);
+  window.requestAnimationFrame(animateLogoLoader);
 }
 
 const header = document.querySelector(".site-header");

@@ -94,6 +94,38 @@ body.loader-active {
   animation: loader-glow 1200ms ease-in-out infinite alternate;
 }
 
+.logo-loader-progress {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: min(260px, 72vw);
+}
+
+.logo-loader-track {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(213, 141, 22, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 1px 4px rgba(159, 95, 0, 0.12);
+}
+
+.logo-loader-bar {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-primary-dark), var(--color-primary), var(--color-secondary));
+  transition: width 120ms ease;
+}
+
+.logo-loader-progress strong {
+  color: var(--color-dark);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
 @keyframes loader-orbit {
   to {
     transform: rotate(360deg);
