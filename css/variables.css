@@ -1,0 +1,28 @@
+:root {
+  --color-primary: #d58d16;
+  --color-primary-dark: #9f5f00;
+  --color-secondary: #0f6f76;
+  --color-accent: #7a8f2a;
+  --color-background: #fffaf0;
+  --color-background-warm: #f8eddc;
+  --color-text: #25180b;
+  --color-text-muted: #6f5a40;
+  --color-surface: #ffffff;
+  --color-surface-gold: #fff4dd;
+  --color-border: #ead5aa;
+  --color-dark: #2c1800;
+  --font-display: "Cinzel", "Tiro Telugu", Georgia, serif;
+  --font-body: "Lato", "Tiro Telugu", system-ui, sans-serif;
+  --radius: 8px;
+  --shadow-primary: 0 20px 60px rgba(159, 95, 0, 0.18);
+  --shadow-soft: 0 12px 32px rgba(37, 24, 11, 0.1);
+  --gradient-hero: linear-gradient(135deg, rgba(44, 24, 0, 0.92), rgba(159, 95, 0, 0.72));
+  --max-width: 1180px;
+  --section-space: 80px;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --section-space: 48px;
+  }
+}
