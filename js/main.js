@@ -1,3 +1,22 @@
+const logoLoader = document.querySelector("#logoLoader");
+
+if (logoLoader) {
+  document.body.classList.add("loader-active");
+  const hideLogoLoader = () => {
+    window.setTimeout(() => {
+      logoLoader.classList.add("done");
+      document.body.classList.remove("loader-active");
+    }, 500);
+    window.setTimeout(() => logoLoader.remove(), 1150);
+  };
+
+  if (document.readyState === "complete") {
+    hideLogoLoader();
+  } else {
+    window.addEventListener("load", hideLogoLoader, { once: true });
+  }
+}
+
 const header = document.querySelector(".site-header");
 const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");

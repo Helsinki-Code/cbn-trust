@@ -14,6 +14,114 @@ body {
   line-height: 1.6;
 }
 
+body.loader-active {
+  overflow: hidden;
+}
+
+.logo-loader {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(213, 141, 22, 0.24), transparent 32%),
+    linear-gradient(135deg, #fffaf0 0%, #fff4dd 48%, #f8eddc 100%);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 520ms ease, visibility 520ms ease;
+}
+
+.logo-loader.done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.logo-loader-inner {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+}
+
+.logo-loader-mark {
+  position: relative;
+  display: grid;
+  width: 132px;
+  height: 132px;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-primary);
+  animation: loader-rise 900ms ease both;
+}
+
+.logo-loader-mark::before,
+.logo-loader-mark::after {
+  position: absolute;
+  inset: -14px;
+  border: 2px solid rgba(213, 141, 22, 0.3);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  content: "";
+  animation: loader-orbit 1400ms linear infinite;
+}
+
+.logo-loader-mark::after {
+  inset: -26px;
+  border-color: rgba(15, 111, 118, 0.16);
+  border-bottom-color: var(--color-secondary);
+  animation-duration: 2100ms;
+  animation-direction: reverse;
+}
+
+.logo-loader img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.logo-loader span {
+  color: var(--color-primary-dark);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  animation: loader-glow 1200ms ease-in-out infinite alternate;
+}
+
+@keyframes loader-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes loader-glow {
+  from {
+    opacity: 0.72;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 img {
   display: block;
   max-width: 100%;
